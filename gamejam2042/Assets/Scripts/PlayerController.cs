@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.T) && scrapAmount >= 2)
         {
-            scrapAmount -= 2;
+            ChangeScrapAmount(-2);
             ChangePointAmount(-1);
             BuildTurret();
         }
