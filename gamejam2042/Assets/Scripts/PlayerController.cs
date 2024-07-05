@@ -69,14 +69,14 @@ public class PlayerController : MonoBehaviour
         {
             Vector3Int position = Vector3Int.RoundToInt(transform.position);
             UnityEngine.Debug.Log(position);
-            if (rockTilemap.HasTile(new Vector3Int(position.x+2, position.y, 0)) ||
-                rockTilemap.HasTile(new Vector3Int(position.x+1, position.y, 0)) ||
-                rockTilemap.HasTile(new Vector3Int(position.x-1, position.y, 0)) ||
-                rockTilemap.HasTile(new Vector3Int(position.x-2, position.y, 0)) ||
-                rockTilemap.HasTile(new Vector3Int(position.x, position.y+2, 0)) ||
-                rockTilemap.HasTile(new Vector3Int(position.x, position.y+1, 0)) ||
-                rockTilemap.HasTile(new Vector3Int(position.x, position.y-1, 0)) ||
-                rockTilemap.HasTile(new Vector3Int(position.x, position.y-2, 0)))
+            if (rockTilemap.HasTile(new Vector3Int(position.x + 2, position.y, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x + 1, position.y, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x - 1, position.y, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x - 2, position.y, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x, position.y + 2, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x, position.y + 1, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x, position.y - 1, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x, position.y - 2, 0)))
             {
                 rockTilemap.SetTile(new Vector3Int(position.x + 2, position.y, 0), null);
                 rockTilemap.SetTile(new Vector3Int(position.x + 1, position.y, 0), null);
@@ -160,7 +160,8 @@ public class PlayerController : MonoBehaviour
             {
                 canvasManager.SetEnding("Death ending", Color.red, "You didn't have enough defencepoints for the night.");
                 Destroy(gameObject);
-            } else
+            }
+            else
             {
                 minDefencePoints += minDefencePointsIncreasePerDay;
                 StartCoroutine(NextDay());
@@ -206,7 +207,7 @@ public class PlayerController : MonoBehaviour
             touchFood = true;
             food = collision.gameObject;
         }
-
+    }
     public void triggerExit(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("scrap"))
@@ -246,7 +247,7 @@ public class PlayerController : MonoBehaviour
         running = true;
         canvasManager.SetAnnouncement("");
         ChangePointAmount(10 + foodBonus);
-        day +=1;
+        day += 1;
         canvasManager.SetDay(day);
     }
 }
