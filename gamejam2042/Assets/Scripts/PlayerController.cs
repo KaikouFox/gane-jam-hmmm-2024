@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private bool touchScrap = false;
     private GameObject scrap;
     private int scrapAmount = 0;
+    private bool touchRocket = false;
 
     private void Start()
     {
