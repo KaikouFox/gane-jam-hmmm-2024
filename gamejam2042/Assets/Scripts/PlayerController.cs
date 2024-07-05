@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,8 +18,12 @@ public class PlayerController : MonoBehaviour
     private GameObject scrap;
     private int scrapAmount = 0;
     private bool touchRocket = false;
+    private bool touchTool = false;
+    private int pickaxeLevel = 0;
+
     private RocketController rocketScript;
     public GameObject turret;
+    public Tilemap rockTilemap;
 
     private void Start()
     {
@@ -41,6 +47,14 @@ public class PlayerController : MonoBehaviour
             ChangePointAmount(-1);
             ChangeScrapAmount(-1);
             rocketScript.AddScraps(1);
+        } 
+        else if (Input.GetKeyDown(KeyCode.E) && touchTool && pickaxeLevel == 1)
+        {
+            Vector3Int position = Vector3Int.RoundToInt(GameObject.position)
+            rockTilemap.SetTile(new Vector3Int(position.x+1, position.y, 0), null);
+            rockTilemap.SetTile(new Vector3Int(position.x-1, position.y, 0), null);
+            rockTilemap.SetTile(new Vector3Int(position.x, position.y+1, 0), null);
+            rockTilemap.SetTile(new Vector3Int(position.x, position.y-1, 0), null);
         }
         if (Input.GetKeyDown(KeyCode.Q) && touchRocket)
         {
@@ -84,6 +98,11 @@ public class PlayerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("rocket"))
         {
             touchRocket = true;
+        } 
+        else if (collision.gameObject.CompareTag("tool"))
+        {
+            pickaxeLevel += 1;
+            Destroy(collision.gameObject);
         }
     }
 
@@ -96,6 +115,10 @@ public class PlayerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("rocket"))
         {
             touchRocket = false;
+        }
+        else if (collision.gameObject.CompareTag("tool"))
+        {
+            touchTool = false;
         }
     }
 
