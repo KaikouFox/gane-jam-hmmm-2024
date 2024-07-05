@@ -178,6 +178,7 @@ public class PlayerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("tool"))
         {
             pickaxeLevel += 1;
+            ChangePointAmount(-1);
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("superScrap"))
