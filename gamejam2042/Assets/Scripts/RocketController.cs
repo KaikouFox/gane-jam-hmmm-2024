@@ -30,6 +30,10 @@ public class RocketController : MonoBehaviour
                 Instantiate(explosionParticle, transform.position, transform.rotation);
                 canvasManager.SetEnding("Bad ending", Color.red);
                 Destroy(gameObject);
+            } else if (speed > 7 && scraps >= maxScraps)
+            {
+                canvasManager.SetEnding("Good ending", Color.white);
+                Destroy(gameObject);
             }
         }
     }

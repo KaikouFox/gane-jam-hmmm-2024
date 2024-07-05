@@ -167,5 +167,6 @@ public class PlayerController : MonoBehaviour
         canvasManager.SetAnnouncement("");
         ChangePointAmount(10);
         day +=1;
+        canvasManager.SetDay(day);
     }
 }
