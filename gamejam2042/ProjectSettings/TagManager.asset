@@ -6,6 +6,9 @@ TagManager:
   tags:
   - scrap
   - rocket
+  - Rock
+  - tool
+  - food
   layers:
   - Default
   - TransparentFX
