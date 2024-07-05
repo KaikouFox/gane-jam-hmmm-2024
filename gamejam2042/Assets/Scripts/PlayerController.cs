@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         canvasManager = FindObjectOfType<CanvasManager>();
         canvasManager.SetActionPoints(actionPoints);
-        rocket = GameObject.FindWithTag("rocket");
+        rocket= GameObject.FindWithTag("rocket");
         rocketScript = rocket.GetComponent<RocketController>();
     }
 
@@ -59,8 +59,9 @@ public class PlayerController : MonoBehaviour
         canvasManager.SetActionPoints(actionPoints);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void triggerEnter(Collider2D collision)
     {
+        Debug.Log("trigger entered");
         if (collision.gameObject.CompareTag("scrap"))
         {
             touchScrap = true;
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public void triggerExit(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("scrap"))
         {
