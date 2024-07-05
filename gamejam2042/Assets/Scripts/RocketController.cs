@@ -12,6 +12,7 @@ public class RocketController : MonoBehaviour
     private bool fly = false;
     private float speed = 0f;
     private CanvasManager canvasManager;
+    private int day;
 
     private void Start()
     {
@@ -28,11 +29,15 @@ public class RocketController : MonoBehaviour
             if (speed > 3.8 && scraps < maxScraps)
             {
                 Instantiate(explosionParticle, transform.position, transform.rotation);
-                canvasManager.SetEnding("Bad ending", Color.red);
+                canvasManager.SetEnding("Bad ending", Color.red, "BOOM!!!! \n You didn't put enough scrap in the rocket.");
+                Destroy(gameObject);
+            } else if (speed > 7 && scraps >= maxScraps && day == 1)
+            {
+                canvasManager.SetEnding("Speedrunner ending", Color.green, "Are you dream?");
                 Destroy(gameObject);
             } else if (speed > 7 && scraps >= maxScraps)
             {
-                canvasManager.SetEnding("Good ending", Color.white);
+                canvasManager.SetEnding("Good ending", Color.white, "Well done!");
                 Destroy(gameObject);
             }
         }
@@ -41,12 +46,11 @@ public class RocketController : MonoBehaviour
     public void AddScraps(int amount)
     {
         scraps += amount;
-        Debug.Log("scraps in rocket: " + scraps);
     }
 
     public void LaunchRocket(GameObject player)
     {
-        Debug.Log("try to launch");
+        day = player.GetComponent<PlayerController>().day;
         if (scraps >= minScraps)
         {
             Transform camera = player.transform.GetChild(0);
