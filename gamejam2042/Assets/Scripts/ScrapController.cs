@@ -2,27 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RocketController : MonoBehaviour
+public class ScrapController : MonoBehaviour
 {
-    [SerializeField] private int minScraps = 10;
-    [SerializeField] private int maxScraps = 20;
-    private int scraps;
-
-    public void AddScraps(int amount)
-    {
-        scraps += amount;
-        Debug.Log("scraps in rocket: " + scraps);
-    }
-
-    public void LaunchRocket(GameObject player)
-    {
-        Debug.Log("try to launch");
-        if (scraps >= minScraps)
-        {
-            Destroy(player);
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

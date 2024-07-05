@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5806877957020239863}
   - component: {fileID: -4911479377220709759}
   - component: {fileID: -5675747098872998768}
+  - component: {fileID: 8576825795243857098}
   m_Layer: 0
   m_Name: Scrap Metal
   m_TagString: scrap
@@ -109,3 +110,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.99609375, y: 0.86328125}
   m_EdgeRadius: 0
+--- !u!114 &8576825795243857098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3355632707582095850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d158d728b84fbe240aebde4561b3f942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float baseSpeed = 5f;
     [SerializeField] private int actionPoints = 10;
-    
+
     private GameObject rocket;
     private float movementX;
     private float movementY;
@@ -21,7 +21,8 @@ public class PlayerController : MonoBehaviour
     {
         canvasManager = FindObjectOfType<CanvasManager>();
         canvasManager.SetActionPoints(actionPoints);
-        rocket = GameObject.FindWithTag("rocket");
+        canvasManager.SetScrapPoints(scrapAmount);
+        rocket= GameObject.FindWithTag("rocket");
         rocketScript = rocket.GetComponent<RocketController>();
     }
 
@@ -29,14 +30,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && touchScrap)
         {
+            ChangeScrapAmount(1);
             ChangePointAmount(-1);
-            scrapAmount += 1;
             Destroy(scrap);
         }
-        if (Input.GetKeyDown(KeyCode.E) && touchRocket)
+        else if (Input.GetKeyDown(KeyCode.E) && touchRocket && scrapAmount >= 0)
         {
             ChangePointAmount(-1);
-            scrapAmount -= 1;
+            ChangeScrapAmount(-1);
             rocketScript.AddScraps(1);
         }
         if (Input.GetKeyDown(KeyCode.Q) && touchRocket)
@@ -59,7 +60,13 @@ public class PlayerController : MonoBehaviour
         canvasManager.SetActionPoints(actionPoints);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void ChangeScrapAmount(int newValue)
+    {
+        scrapAmount += newValue;
+        canvasManager.SetScrapPoints(scrapAmount);
+    }
+
+    public void triggerEnter(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("scrap"))
         {
@@ -72,7 +79,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public void triggerExit(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("scrap"))
         {
