@@ -6,6 +6,7 @@ public class RocketController : MonoBehaviour
 {
     [SerializeField] private int minScraps = 10;
     [SerializeField] private int maxScraps = 20;
+    [SerializeField] private int tooManyScraps = 30;
     [SerializeField] private float acceleration = 0.1f;
     [SerializeField] private GameObject explosionParticle;
     private int scraps;
@@ -13,6 +14,7 @@ public class RocketController : MonoBehaviour
     private float speed = 0f;
     private CanvasManager canvasManager;
     private int day;
+    private int omhoog = 1;
 
     private void Start()
     {
@@ -24,7 +26,7 @@ public class RocketController : MonoBehaviour
     {
         if (fly)
         {
-            transform.position = transform.position + new Vector3(0, Mathf.Pow(2, speed)) * Time.deltaTime;
+            transform.position = transform.position + new Vector3(0, Mathf.Pow(2, speed) * omhoog) * Time.deltaTime;
             speed += acceleration;
             if (speed > 3.8 && scraps < maxScraps)
             {
@@ -38,6 +40,20 @@ public class RocketController : MonoBehaviour
             } else if (speed > 7 && scraps >= maxScraps)
             {
                 canvasManager.SetEnding("Good ending", Color.white, "Well done!");
+                Destroy(gameObject);
+            } else if (speed > 3.8 && scraps >= tooManyScraps)
+            {
+                acceleration = -0.1f;
+            } else if (speed <= 0 && scraps >= tooManyScraps)
+            {
+                omhoog = -1;
+                speed = 0;
+                acceleration = 0.1f;
+            }
+            if (transform.position.y <= 1.77)
+            {
+                Instantiate(explosionParticle, transform.position, transform.rotation);
+                canvasManager.SetEnding("Heavy ending", Color.red, "BOOM!!!! \n Oopsie doopsie, you put too much scrap in the rocket. ");
                 Destroy(gameObject);
             }
         }
@@ -56,6 +72,7 @@ public class RocketController : MonoBehaviour
             Transform camera = player.transform.GetChild(0);
             camera.SetParent(null);
             camera.position = new Vector3(0, 5, -15);
+            camera.gameObject.GetComponent<Camera>().orthographicSize = 12.5f;
             Destroy(player);
             transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
             fly = true;

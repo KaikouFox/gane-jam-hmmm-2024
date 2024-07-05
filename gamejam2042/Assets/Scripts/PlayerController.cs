@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && touchScrap)
         {
-            ChangeScrapAmount(1);
+            ChangeScrapAmount(2);
             ChangePointAmount(-1);
             Destroy(scrap);
         }
@@ -195,6 +195,7 @@ public class PlayerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("tool"))
         {
             pickaxeLevel += 1;
+            ChangePointAmount(-1);
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("food"))
