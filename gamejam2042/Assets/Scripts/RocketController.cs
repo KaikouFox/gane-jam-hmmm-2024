@@ -56,6 +56,7 @@ public class RocketController : MonoBehaviour
             Transform camera = player.transform.GetChild(0);
             camera.SetParent(null);
             camera.position = new Vector3(0, 5, -15);
+            camera.gameObject.GetComponent<Camera>().orthographicSize = 12.5f;
             Destroy(player);
             transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
             fly = true;
