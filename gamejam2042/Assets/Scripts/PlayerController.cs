@@ -18,11 +18,15 @@ public class PlayerController : MonoBehaviour
     private CanvasManager canvasManager;
     private bool touchScrap = false;
     private GameObject scrap;
+    private GameObject food;
     private int scrapAmount = 0;
     private bool touchRocket = false;
     private bool touchTool = false;
+    private bool touchFood = true;
     private int pickaxeLevel = 0;
+    private int foodBonus = 0;
     private bool touchSuperScrap = false;
+
     private RocketController rocketScript;
     public int day = 1;
     public GameObject turret;
@@ -68,14 +72,14 @@ public class PlayerController : MonoBehaviour
         {
             Vector3Int position = Vector3Int.RoundToInt(transform.position);
             UnityEngine.Debug.Log(position);
-            if (rockTilemap.HasTile(new Vector3Int(position.x+2, position.y, 0)) ||
-                rockTilemap.HasTile(new Vector3Int(position.x+1, position.y, 0)) ||
-                rockTilemap.HasTile(new Vector3Int(position.x-1, position.y, 0)) ||
-                rockTilemap.HasTile(new Vector3Int(position.x-2, position.y, 0)) ||
-                rockTilemap.HasTile(new Vector3Int(position.x, position.y+2, 0)) ||
-                rockTilemap.HasTile(new Vector3Int(position.x, position.y+1, 0)) ||
-                rockTilemap.HasTile(new Vector3Int(position.x, position.y-1, 0)) ||
-                rockTilemap.HasTile(new Vector3Int(position.x, position.y-2, 0)))
+            if (rockTilemap.HasTile(new Vector3Int(position.x + 2, position.y, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x + 1, position.y, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x - 1, position.y, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x - 2, position.y, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x, position.y + 2, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x, position.y + 1, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x, position.y - 1, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x, position.y - 2, 0)))
             {
                 rockTilemap.SetTile(new Vector3Int(position.x + 2, position.y, 0), null);
                 rockTilemap.SetTile(new Vector3Int(position.x + 1, position.y, 0), null);
@@ -99,7 +103,7 @@ public class PlayerController : MonoBehaviour
                 hrockTilemap.HasTile(new Vector3Int(position.x, position.y + 2, 0)) ||
                 hrockTilemap.HasTile(new Vector3Int(position.x, position.y + 1, 0)) ||
                 hrockTilemap.HasTile(new Vector3Int(position.x, position.y - 1, 0)) ||
-                hrockTilemap.HasTile(new Vector3Int(position.x, position.y - 2, 0))) 
+                hrockTilemap.HasTile(new Vector3Int(position.x, position.y - 2, 0)))
             {
                 UnityEngine.Debug.Log("Braek rock");
                 hrockTilemap.SetTile(new Vector3Int(position.x + 2, position.y, 0), null);
@@ -112,6 +116,18 @@ public class PlayerController : MonoBehaviour
                 hrockTilemap.SetTile(new Vector3Int(position.x, position.y - 2, 0), null);
                 ChangePointAmount(-1);
             }
+        }
+        if (Input.GetKeyDown(KeyCode.E) && touchFood)
+        {
+            ChangePointAmount(1);
+            UnityEngine.Debug.Log("Food interact");
+            Destroy(food);
+        }
+        if (Input.GetKeyDown(KeyCode.P) && touchFood)
+        {
+            ChangePointAmount(-1);
+            foodBonus += 1;
+            Destroy(food);
         }
         if (Input.GetKeyDown(KeyCode.Q) && touchRocket)
         {
@@ -148,7 +164,8 @@ public class PlayerController : MonoBehaviour
                 canvasManager.SetEnding("Death ending", Color.red, "You didn't have enough defencepoints for the night.");
                 transform.GetChild(0).parent = null;
                 Destroy(gameObject);
-            } else
+            }
+            else
             {
                 minDefencePoints += minDefencePointsIncreasePerDay;
                 StartCoroutine(NextDay());
@@ -185,13 +202,17 @@ public class PlayerController : MonoBehaviour
             ChangePointAmount(-1);
             Destroy(collision.gameObject);
         }
-        else if (collision.gameObject.CompareTag("superScrap"))
+        else if (collision.gameObject.CompareTag("food"))
         {
-            touchSuperScrap = true;
-            scrap = collision.gameObject;
+            touchFood = true;
+            food = collision.gameObject;
+        }
+        else if (collision.gameObject.CompareTag("food"))
+        {
+            touchFood = true;
+            food = collision.gameObject;
         }
     }
-
     public void triggerExit(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("scrap"))
@@ -205,6 +226,10 @@ public class PlayerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("tool"))
         {
             touchTool = false;
+        }
+        else if (collision.gameObject.CompareTag("food"))
+        {
+            touchFood = false;
         }
         else if (collision.gameObject.CompareTag("superScrap"))
         {
@@ -226,8 +251,8 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(0.5f, -4, 0);
         running = true;
         canvasManager.SetAnnouncement("");
-        ChangePointAmount(10);
-        day +=1;
+        ChangePointAmount(10 + foodBonus);
+        day += 1;
         canvasManager.SetDay(day);
     }
 }
