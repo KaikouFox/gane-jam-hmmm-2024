@@ -59,7 +59,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -183,6 +183,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSpeed: 7
   actionPoints: 10
+  day: 1
+  turret: {fileID: 0}
+  rockTilemap: {fileID: 0}
 --- !u!50 &2732355031418536933
 Rigidbody2D:
   serializedVersion: 4
@@ -221,7 +224,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1, y: 1.9652174}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public int day = 1;
     public GameObject turret;
     public Tilemap rockTilemap;
+    public Tilemap hrockTilemap;
     private bool running = true;
     private int defencePoints = 0;
 
@@ -60,13 +61,31 @@ public class PlayerController : MonoBehaviour
             ChangeScrapAmount(-1);
             rocketScript.AddScraps(1);
         }
-        else if (Input.GetKeyDown(KeyCode.E) && touchTool && pickaxeLevel == 1)
+        else if (Input.GetKeyDown(KeyCode.E) && pickaxeLevel == 1)
         {
             Vector3Int position = Vector3Int.RoundToInt(transform.position);
+            UnityEngine.Debug.Log(position);
+            rockTilemap.SetTile(new Vector3Int(position.x+2, position.y, 0), null);
             rockTilemap.SetTile(new Vector3Int(position.x+1, position.y, 0), null);
             rockTilemap.SetTile(new Vector3Int(position.x-1, position.y, 0), null);
+            rockTilemap.SetTile(new Vector3Int(position.x-2, position.y, 0), null);
+            rockTilemap.SetTile(new Vector3Int(position.x, position.y+2, 0), null);
             rockTilemap.SetTile(new Vector3Int(position.x, position.y+1, 0), null);
             rockTilemap.SetTile(new Vector3Int(position.x, position.y-1, 0), null);
+            rockTilemap.SetTile(new Vector3Int(position.x, position.y-2, 0), null);
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && pickaxeLevel == 2)
+        {
+            Vector3Int position = Vector3Int.RoundToInt(transform.position);
+            UnityEngine.Debug.Log(position);
+            hrockTilemap.SetTile(new Vector3Int(position.x + 2, position.y, 0), null);
+            hrockTilemap.SetTile(new Vector3Int(position.x + 1, position.y, 0), null);
+            hrockTilemap.SetTile(new Vector3Int(position.x - 1, position.y, 0), null);
+            hrockTilemap.SetTile(new Vector3Int(position.x - 2, position.y, 0), null);
+            hrockTilemap.SetTile(new Vector3Int(position.x, position.y + 2, 0), null);
+            hrockTilemap.SetTile(new Vector3Int(position.x, position.y + 1, 0), null);
+            hrockTilemap.SetTile(new Vector3Int(position.x, position.y - 1, 0), null);
+            hrockTilemap.SetTile(new Vector3Int(position.x, position.y - 2, 0), null);
         }
         if (Input.GetKeyDown(KeyCode.Q) && touchRocket)
         {
@@ -181,5 +200,6 @@ public class PlayerController : MonoBehaviour
         canvasManager.SetAnnouncement("");
         ChangePointAmount(10);
         day +=1;
+        canvasManager.SetDay(day);
     }
 }
