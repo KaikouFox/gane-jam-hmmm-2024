@@ -11,10 +11,12 @@ public class RocketController : MonoBehaviour
     private int scraps;
     private bool fly = false;
     private float speed = 0f;
+    private CanvasManager canvasManager;
 
     private void Start()
     {
         transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+        canvasManager = FindObjectOfType<CanvasManager>();
     }
 
     private void FixedUpdate()
@@ -26,6 +28,7 @@ public class RocketController : MonoBehaviour
             if (speed > 3.8 && scraps < maxScraps)
             {
                 Instantiate(explosionParticle, transform.position, transform.rotation);
+                canvasManager.SetEnding("Bad ending", Color.red);
                 Destroy(gameObject);
             }
         }
