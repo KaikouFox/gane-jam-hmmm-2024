@@ -11,10 +11,15 @@ public class RocketController : MonoBehaviour
     public void AddScraps(int amount)
     {
         scraps += amount;
+        Debug.Log("scraps in rocket: " + scraps);
     }
 
-    public void LaunchRocket()
+    public void LaunchRocket(GameObject player)
     {
-
+        Debug.Log("try to launch");
+        if (scraps >= minScraps)
+        {
+            Destroy(player);
+        }
     }
 }
