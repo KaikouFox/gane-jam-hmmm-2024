@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private int scrapAmount = 0;
     private bool touchRocket = false;
     private bool touchTool = false;
-    private bool touchFood = true;
+    private bool touchFood = false;
     private int pickaxeLevel = 0;
     private int foodBonus = 0;
     private bool touchSuperScrap = false;
@@ -201,11 +201,6 @@ public class PlayerController : MonoBehaviour
             pickaxeLevel += 1;
             ChangePointAmount(-1);
             Destroy(collision.gameObject);
-        }
-        else if (collision.gameObject.CompareTag("food"))
-        {
-            touchFood = true;
-            food = collision.gameObject;
         }
         else if (collision.gameObject.CompareTag("food"))
         {
