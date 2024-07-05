@@ -37,12 +37,15 @@ public class PlayerController : MonoBehaviour
         canvasManager.SetCanvasState(CanvasManager.CanvasState.InGame);
         canvasManager.SetActionPoints(actionPoints);
         canvasManager.SetScrapPoints(scrapAmount);
+        canvasManager.SetDefencePoints(defencePoints);
+        canvasManager.SetDay(day);
         rocket = GameObject.FindWithTag("rocket");
         rocketScript = rocket.GetComponent<RocketController>();
     }
 
     private void Update()
     {
+        if (!running) { return; }
         if (Input.GetKeyDown(KeyCode.E) && touchScrap)
         {
             ChangeScrapAmount(2);
@@ -143,6 +146,7 @@ public class PlayerController : MonoBehaviour
             if (defencePoints < minDefencePoints)
             {
                 canvasManager.SetEnding("Death ending", Color.red, "You didn't have enough defencepoints for the night.");
+                transform.GetChild(0).parent = null;
                 Destroy(gameObject);
             } else
             {
@@ -218,7 +222,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator NextDay()
     {
         running = false;
-        yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSecondsRealtime(3);
         transform.position = new Vector3(0.5f, -4, 0);
         running = true;
         canvasManager.SetAnnouncement("");

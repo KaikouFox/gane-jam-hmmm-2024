@@ -47,5 +47,10 @@ public class ScrapSpawningScript : MonoBehaviour
         scrapLocations.Add(new Vector3Int(-58, 14, 0));
         scrapLocations.Add(new Vector3Int(-85, 9, 0));
         scrapLocations.Add(new Vector3Int(-84, 9, 0));
+        scrapLocations.Add(new Vector3Int(-19, 2, 0));
+        scrapLocations.Add(new Vector3Int(48, -5, 0));
+        scrapLocations.Add(new Vector3Int(31, -4, 0));
+        scrapLocations.Add(new Vector3Int(22, 12, 0));
+        scrapLocations.Add(new Vector3Int(36, 35, 0));
     }
 }
