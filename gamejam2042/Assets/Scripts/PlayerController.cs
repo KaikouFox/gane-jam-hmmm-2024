@@ -51,31 +51,54 @@ public class PlayerController : MonoBehaviour
             ChangeScrapAmount(-1);
             rocketScript.AddScraps(1);
         }
-        else if (Input.GetKeyDown(KeyCode.E) && pickaxeLevel == 1)
+        if (Input.GetKeyDown(KeyCode.E) && pickaxeLevel >= 1)
         {
             Vector3Int position = Vector3Int.RoundToInt(transform.position);
             UnityEngine.Debug.Log(position);
-            rockTilemap.SetTile(new Vector3Int(position.x+2, position.y, 0), null);
-            rockTilemap.SetTile(new Vector3Int(position.x+1, position.y, 0), null);
-            rockTilemap.SetTile(new Vector3Int(position.x-1, position.y, 0), null);
-            rockTilemap.SetTile(new Vector3Int(position.x-2, position.y, 0), null);
-            rockTilemap.SetTile(new Vector3Int(position.x, position.y+2, 0), null);
-            rockTilemap.SetTile(new Vector3Int(position.x, position.y+1, 0), null);
-            rockTilemap.SetTile(new Vector3Int(position.x, position.y-1, 0), null);
-            rockTilemap.SetTile(new Vector3Int(position.x, position.y-2, 0), null);
+            if (rockTilemap.HasTile(new Vector3Int(position.x+2, position.y, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x+1, position.y, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x-1, position.y, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x-2, position.y, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x, position.y+2, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x, position.y+1, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x, position.y-1, 0)) ||
+                rockTilemap.HasTile(new Vector3Int(position.x, position.y-2, 0)))
+            {
+                rockTilemap.SetTile(new Vector3Int(position.x + 2, position.y, 0), null);
+                rockTilemap.SetTile(new Vector3Int(position.x + 1, position.y, 0), null);
+                rockTilemap.SetTile(new Vector3Int(position.x - 1, position.y, 0), null);
+                rockTilemap.SetTile(new Vector3Int(position.x - 2, position.y, 0), null);
+                rockTilemap.SetTile(new Vector3Int(position.x, position.y + 2, 0), null);
+                rockTilemap.SetTile(new Vector3Int(position.x, position.y + 1, 0), null);
+                rockTilemap.SetTile(new Vector3Int(position.x, position.y - 1, 0), null);
+                rockTilemap.SetTile(new Vector3Int(position.x, position.y - 2, 0), null);
+                ChangePointAmount(-1);
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.E) && pickaxeLevel == 2)
+        if (Input.GetKeyDown(KeyCode.E) && pickaxeLevel == 2)
         {
             Vector3Int position = Vector3Int.RoundToInt(transform.position);
-            UnityEngine.Debug.Log(position);
-            hrockTilemap.SetTile(new Vector3Int(position.x + 2, position.y, 0), null);
-            hrockTilemap.SetTile(new Vector3Int(position.x + 1, position.y, 0), null);
-            hrockTilemap.SetTile(new Vector3Int(position.x - 1, position.y, 0), null);
-            hrockTilemap.SetTile(new Vector3Int(position.x - 2, position.y, 0), null);
-            hrockTilemap.SetTile(new Vector3Int(position.x, position.y + 2, 0), null);
-            hrockTilemap.SetTile(new Vector3Int(position.x, position.y + 1, 0), null);
-            hrockTilemap.SetTile(new Vector3Int(position.x, position.y - 1, 0), null);
-            hrockTilemap.SetTile(new Vector3Int(position.x, position.y - 2, 0), null);
+            UnityEngine.Debug.Log("Checking hrock");
+            if (hrockTilemap.HasTile(new Vector3Int(position.x + 2, position.y, 0)) ||
+                hrockTilemap.HasTile(new Vector3Int(position.x + 1, position.y, 0)) ||
+                hrockTilemap.HasTile(new Vector3Int(position.x - 1, position.y, 0)) ||
+                hrockTilemap.HasTile(new Vector3Int(position.x - 2, position.y, 0)) ||
+                hrockTilemap.HasTile(new Vector3Int(position.x, position.y + 2, 0)) ||
+                hrockTilemap.HasTile(new Vector3Int(position.x, position.y + 1, 0)) ||
+                hrockTilemap.HasTile(new Vector3Int(position.x, position.y - 1, 0)) ||
+                hrockTilemap.HasTile(new Vector3Int(position.x, position.y - 2, 0))) 
+            {
+                UnityEngine.Debug.Log("Braek rock");
+                hrockTilemap.SetTile(new Vector3Int(position.x + 2, position.y, 0), null);
+                hrockTilemap.SetTile(new Vector3Int(position.x + 1, position.y, 0), null);
+                hrockTilemap.SetTile(new Vector3Int(position.x - 1, position.y, 0), null);
+                hrockTilemap.SetTile(new Vector3Int(position.x - 2, position.y, 0), null);
+                hrockTilemap.SetTile(new Vector3Int(position.x, position.y + 2, 0), null);
+                hrockTilemap.SetTile(new Vector3Int(position.x, position.y + 1, 0), null);
+                hrockTilemap.SetTile(new Vector3Int(position.x, position.y - 1, 0), null);
+                hrockTilemap.SetTile(new Vector3Int(position.x, position.y - 2, 0), null);
+                ChangePointAmount(-1);
+            }
         }
         if (Input.GetKeyDown(KeyCode.Q) && touchRocket)
         {
