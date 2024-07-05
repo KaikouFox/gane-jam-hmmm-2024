@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float baseSpeed = 5f;
     [SerializeField] private int actionPoints = 10;
+    [SerializeField] private int minDefencePoints = 2;
+    [SerializeField] private int minDefencePointsIncreasePerDay = 1;
 
     private GameObject rocket;
     private float movementX;
@@ -18,14 +20,16 @@ public class PlayerController : MonoBehaviour
     private GameObject scrap;
     private int scrapAmount = 0;
     private bool touchRocket = false;
-    public int pickaxeLevel = 0;
-
+    private bool touchTool = false;
+    private int pickaxeLevel = 0;
+    private bool touchSuperScrap = false;
     private RocketController rocketScript;
     public int day = 1;
     public GameObject turret;
     public Tilemap rockTilemap;
     public Tilemap hrockTilemap;
     private bool running = true;
+    private int defencePoints = 0;
 
     private void Start()
     {
@@ -43,6 +47,12 @@ public class PlayerController : MonoBehaviour
         {
             ChangeScrapAmount(1);
             ChangePointAmount(-1);
+            Destroy(scrap);
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && touchSuperScrap)
+        {
+            ChangeScrapAmount(100);
+            ChangePointAmount(100);
             Destroy(scrap);
         }
         else if (Input.GetKeyDown(KeyCode.E) && touchRocket && scrapAmount >= 1)
@@ -130,7 +140,15 @@ public class PlayerController : MonoBehaviour
         if (actionPoints <= 0)
         {
             canvasManager.SetAnnouncement("Ran out of Actionpoints");
-            StartCoroutine(NextDay());
+            if (defencePoints < minDefencePoints)
+            {
+                canvasManager.SetEnding("Death ending", Color.red, "You didn't have enough defencepoints for the night.");
+                Destroy(gameObject);
+            } else
+            {
+                minDefencePoints += minDefencePointsIncreasePerDay;
+                StartCoroutine(NextDay());
+            }
         }
         else
         {
@@ -162,6 +180,11 @@ public class PlayerController : MonoBehaviour
             pickaxeLevel += 1;
             Destroy(collision.gameObject);
         }
+        else if (collision.gameObject.CompareTag("superScrap"))
+        {
+            touchSuperScrap = true;
+            scrap = collision.gameObject;
+        }
     }
 
     public void triggerExit(Collider2D collision)
@@ -174,11 +197,21 @@ public class PlayerController : MonoBehaviour
         {
             touchRocket = false;
         }
+        else if (collision.gameObject.CompareTag("tool"))
+        {
+            touchTool = false;
+        }
+        else if (collision.gameObject.CompareTag("superScrap"))
+        {
+            touchSuperScrap = false;
+        }
     }
 
     public void BuildTurret()
     {
         Instantiate(turret, transform.position, transform.rotation);
+        defencePoints += 1;
+        canvasManager.SetDefencePoints(defencePoints);
     }
 
     IEnumerator NextDay()

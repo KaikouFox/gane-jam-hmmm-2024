@@ -23,6 +23,8 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject dayText;
     [SerializeField] private GameObject endingText;
     [SerializeField] private GameObject announcementText;
+    [SerializeField] private GameObject defenceText;
+    [SerializeField] private GameObject subText;
     [SerializeField] private List<GameObject> screens;
 
     [Header("Sliders")]
@@ -69,19 +71,27 @@ public class CanvasManager : MonoBehaviour
     {
         actionText.GetComponent<TextMeshProUGUI>().text = "Actionpoints: " + amount;
     }
+
+    public void SetDefencePoints(int amount)
+    {
+        defenceText.GetComponent<TextMeshProUGUI>().text = "Defencepoints: " + amount;
+    }
+
     public void SetDay(int amount)
     {
         dayText.GetComponent<TextMeshProUGUI>().text = "Day: " + amount;
     }
+    
     public void SetScrapPoints(int amount)
     {
         scrapText.GetComponent<TextMeshProUGUI>().text = "Scrap: " + amount;
     }
 
-    public void SetEnding(string text, Color textColor)
+    public void SetEnding(string text, Color textColor, string subtext)
     {
         endingText.GetComponent<TextMeshProUGUI>().text = text;
         endingText.GetComponent<TextMeshProUGUI>().color = textColor;
+        subText.GetComponent<TextMeshProUGUI>().text = subtext;
         SetCanvasState(CanvasState.Ending);
     }
 
