@@ -437,6 +437,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 472749706}
   m_CullTransparentMesh: 1
+--- !u!1839735485 &590922648 stripped
+Tilemap:
+  m_CorrespondingSourceObject: {fileID: 3601796826047320143, guid: 3f9a78938ac12ad4d9e999675bb9055f, type: 3}
+  m_PrefabInstance: {fileID: 4535250756322266104}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &872658993
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &872658994
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1186,7 +1191,7 @@ PrefabInstance:
     - target: {fileID: -1230553777454705543, guid: a19a344a64358fc4f9425e1b5b3189c7, type: 3}
       propertyPath: rockTilemap
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 590922648}
     - target: {fileID: -1230553777454705543, guid: a19a344a64358fc4f9425e1b5b3189c7, type: 3}
       propertyPath: hrockTilemap
       value: 
