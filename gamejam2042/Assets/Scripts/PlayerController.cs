@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.E) && touchTool && pickaxeLevel == 1)
         {
-            Vector3Int position = Vector3Int.RoundToInt(GameObject.position)
+            Vector3Int position = Vector3Int.RoundToInt(transform.position);
             rockTilemap.SetTile(new Vector3Int(position.x+1, position.y, 0), null);
             rockTilemap.SetTile(new Vector3Int(position.x-1, position.y, 0), null);
             rockTilemap.SetTile(new Vector3Int(position.x, position.y+1, 0), null);
