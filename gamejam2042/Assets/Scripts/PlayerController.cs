@@ -17,7 +17,9 @@ public class PlayerController : MonoBehaviour
     private int scrapAmount = 0;
     private bool touchRocket = false;
     private RocketController rocketScript;
+    public int day = 1;
     public GameObject turret;
+    private bool running = true;
 
     private void Start()
     {
@@ -57,16 +59,28 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        movementX = Input.GetAxisRaw("Horizontal");
-        movementY = Input.GetAxisRaw("Vertical");
+        if (running)
+        {
+            movementX = Input.GetAxisRaw("Horizontal");
+            movementY = Input.GetAxisRaw("Vertical");
 
-        transform.position = transform.position + new Vector3(movementX * baseSpeed * Time.deltaTime, movementY * baseSpeed * Time.deltaTime, 0);
+            transform.position = transform.position + new Vector3(movementX * baseSpeed * Time.deltaTime, movementY * baseSpeed * Time.deltaTime, 0);
+        }
     }
 
     public void ChangePointAmount(int newValue)
     {
         actionPoints += newValue;
         canvasManager.SetActionPoints(actionPoints);
+        if (actionPoints <= 0)
+        {
+            canvasManager.SetAnnouncement("Ran out of Actionpoints");
+            StartCoroutine(NextDay());
+        }
+        else
+        {
+            canvasManager.SetAnnouncement("");
+        }
     }
 
     public void ChangeScrapAmount(int newValue)
@@ -74,6 +88,8 @@ public class PlayerController : MonoBehaviour
         scrapAmount += newValue;
         canvasManager.SetScrapPoints(scrapAmount);
     }
+
+
 
     public void triggerEnter(Collider2D collision)
     {
@@ -105,5 +121,14 @@ public class PlayerController : MonoBehaviour
         Instantiate(turret, transform.position, transform.rotation);
     }
 
-
+    IEnumerator NextDay()
+    {
+        running = false;
+        yield return new WaitForSecondsRealtime(5);
+        transform.position = new Vector3(0.5f, -4, 0);
+        running = true;
+        canvasManager.SetAnnouncement("");
+        ChangePointAmount(10);
+        day +=1;
+    }
 }
