@@ -183,9 +183,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSpeed: 7
   actionPoints: 10
+  minDefencePoints: 2
+  minDefencePointsIncreasePerDay: 1
   day: 1
-  turret: {fileID: 0}
+  turret: {fileID: 7648073740839396582, guid: 82dc662dcd95fa548abf409e000f20a9, type: 3}
   rockTilemap: {fileID: 0}
+  hrockTilemap: {fileID: 0}
 --- !u!50 &2732355031418536933
 Rigidbody2D:
   serializedVersion: 4
