@@ -30,14 +30,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && touchScrap)
         {
-            scrapAmount += 1;
+            ChangeScrapAmount(1);
             ChangePointAmount(-1);
             Destroy(scrap);
         }
-        if (Input.GetKeyDown(KeyCode.E) && touchRocket)
+        else if (Input.GetKeyDown(KeyCode.E) && touchRocket && scrapAmount >= 0)
         {
             ChangePointAmount(-1);
-            scrapAmount -= 1;
+            ChangeScrapAmount(-1);
             rocketScript.AddScraps(1);
         }
         if (Input.GetKeyDown(KeyCode.Q) && touchRocket)
@@ -58,12 +58,16 @@ public class PlayerController : MonoBehaviour
     {
         actionPoints += newValue;
         canvasManager.SetActionPoints(actionPoints);
+    }
+
+    public void ChangeScrapAmount(int newValue)
+    {
+        scrapAmount += newValue;
         canvasManager.SetScrapPoints(scrapAmount);
     }
 
     public void triggerEnter(Collider2D collision)
     {
-        Debug.Log("trigger entered");
         if (collision.gameObject.CompareTag("scrap"))
         {
             touchScrap = true;
