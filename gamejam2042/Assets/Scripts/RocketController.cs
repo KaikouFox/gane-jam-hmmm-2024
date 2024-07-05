@@ -20,6 +20,7 @@ public class RocketController : MonoBehaviour
         if (scraps >= minScraps)
         {
             Destroy(player);
+
         }
     }
 

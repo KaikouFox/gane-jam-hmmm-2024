@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
             ChangePointAmount(-1);
             Destroy(scrap);
         }
-        else if (Input.GetKeyDown(KeyCode.E) && touchRocket && scrapAmount >= 0)
+        else if (Input.GetKeyDown(KeyCode.E) && touchRocket && scrapAmount >= 1)
         {
             ChangePointAmount(-1);
             ChangeScrapAmount(-1);
