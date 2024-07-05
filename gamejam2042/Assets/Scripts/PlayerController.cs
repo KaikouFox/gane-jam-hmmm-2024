@@ -19,14 +19,16 @@ public class PlayerController : MonoBehaviour
     {
         canvasManager = FindObjectOfType<CanvasManager>();
         canvasManager.SetActionPoints(actionPoints);
+        canvasManager.SetScrapPoints(scrapAmount);
+
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && touchScrap)
         {
-            ChangePointAmount(-1);
             scrapAmount += 1;
+            ChangePointAmount(-1);
             Destroy(scrap);
         }
     }
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour
     {
         actionPoints += newValue;
         canvasManager.SetActionPoints(actionPoints);
+        canvasManager.SetScrapPoints(scrapAmount);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

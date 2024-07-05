@@ -17,6 +17,7 @@ public class CanvasManager : MonoBehaviour
     }
 
     [SerializeField] private GameObject actionText;
+    [SerializeField] private GameObject scrapText;
     [SerializeField] private List<GameObject> screens;
 
     [Header("Sliders")]
@@ -58,5 +59,9 @@ public class CanvasManager : MonoBehaviour
     public void SetActionPoints(int amount)
     {
         actionText.GetComponent<TextMeshProUGUI>().text = "Actionpoints: " + amount;
+    }
+    public void SetScrapPoints(int amount)
+    {
+        scrapText.GetComponent<TextMeshProUGUI>().text = "Scrap: " + amount;
     }
 }
