@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.VersionControl;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -13,11 +14,12 @@ public class CanvasManager : MonoBehaviour
 
     public enum BarType
     {
-        
+
     }
 
     [SerializeField] private GameObject actionText;
     [SerializeField] private GameObject scrapText;
+    [SerializeField] private GameObject announcementText;
     [SerializeField] private List<GameObject> screens;
 
     [Header("Sliders")]
@@ -44,7 +46,7 @@ public class CanvasManager : MonoBehaviour
     {
         switch (type)
         {
-            
+
         }
     }
 
@@ -52,7 +54,7 @@ public class CanvasManager : MonoBehaviour
     {
         switch (type)
         {
-            
+
         }
     }
 
@@ -63,5 +65,10 @@ public class CanvasManager : MonoBehaviour
     public void SetScrapPoints(int amount)
     {
         scrapText.GetComponent<TextMeshProUGUI>().text = "Scrap: " + amount;
+    }
+    public void SetAnnouncement(string message)
+    {
+        Debug.Log(message);
+        announcementText.GetComponent<TextMeshProUGUI>().text = message;
     }
 }
