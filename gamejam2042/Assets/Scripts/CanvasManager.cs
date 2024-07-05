@@ -20,6 +20,7 @@ public class CanvasManager : MonoBehaviour
 
     [SerializeField] private GameObject actionText;
     [SerializeField] private GameObject scrapText;
+    [SerializeField] private GameObject dayText;
     [SerializeField] private GameObject endingText;
     [SerializeField] private GameObject announcementText;
     [SerializeField] private List<GameObject> screens;
@@ -67,6 +68,10 @@ public class CanvasManager : MonoBehaviour
     public void SetActionPoints(int amount)
     {
         actionText.GetComponent<TextMeshProUGUI>().text = "Actionpoints: " + amount;
+    }
+    public void SetDay(int amount)
+    {
+        dayText.GetComponent<TextMeshProUGUI>().text = "Day: " + amount;
     }
     public void SetScrapPoints(int amount)
     {
