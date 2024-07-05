@@ -6,6 +6,8 @@ TagManager:
   tags:
   - scrap
   - rocket
+  - Rock
+  - tool
   layers:
   - Default
   - TransparentFX
