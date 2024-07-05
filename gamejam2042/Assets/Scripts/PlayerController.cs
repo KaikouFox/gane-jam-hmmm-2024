@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,13 +17,14 @@ public class PlayerController : MonoBehaviour
     private int scrapAmount = 0;
     private bool touchRocket = false;
     private RocketController rocketScript;
+    public GameObject turret;
 
     private void Start()
     {
         canvasManager = FindObjectOfType<CanvasManager>();
         canvasManager.SetActionPoints(actionPoints);
         canvasManager.SetScrapPoints(scrapAmount);
-        rocket= GameObject.FindWithTag("rocket");
+        rocket = GameObject.FindWithTag("rocket");
         rocketScript = rocket.GetComponent<RocketController>();
     }
 
@@ -43,6 +45,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && touchRocket)
         {
             rocketScript.LaunchRocket(gameObject);
+        }
+        if (Input.GetKeyDown(KeyCode.T) && scrapAmount >= 2)
+        {
+            scrapAmount -= 2;
+            ChangePointAmount(-1);
+            BuildTurret();
         }
     }
 
@@ -90,4 +98,11 @@ public class PlayerController : MonoBehaviour
             touchRocket = false;
         }
     }
+
+    public void BuildTurret()
+    {
+        Instantiate(turret, transform.position, transform.rotation);
+    }
+
+
 }
