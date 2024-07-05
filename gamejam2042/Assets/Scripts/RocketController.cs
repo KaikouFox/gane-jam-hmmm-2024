@@ -6,7 +6,30 @@ public class RocketController : MonoBehaviour
 {
     [SerializeField] private int minScraps = 10;
     [SerializeField] private int maxScraps = 20;
+    [SerializeField] private float acceleration = 0.1f;
+    [SerializeField] private GameObject explosionParticle;
     private int scraps;
+    private bool fly = false;
+    private float speed = 0f;
+
+    private void Start()
+    {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    private void FixedUpdate()
+    {
+        if (fly)
+        {
+            transform.position = transform.position + new Vector3(0, Mathf.Pow(2, speed)) * Time.deltaTime;
+            speed += acceleration;
+            if (speed > 3.8 && scraps < maxScraps)
+            {
+                Instantiate(explosionParticle, transform.position, transform.rotation);
+                Destroy(gameObject);
+            }
+        }
+    }
 
     public void AddScraps(int amount)
     {
@@ -19,8 +42,12 @@ public class RocketController : MonoBehaviour
         Debug.Log("try to launch");
         if (scraps >= minScraps)
         {
+            Transform camera = player.transform.GetChild(0);
+            camera.SetParent(null);
+            camera.position = new Vector3(0, 5, -15);
             Destroy(player);
-            Debug.Log(transform.GetChild(0).name);
+            transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+            fly = true;
         }
     }
 
