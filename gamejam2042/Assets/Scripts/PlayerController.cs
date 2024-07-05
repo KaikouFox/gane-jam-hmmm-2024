@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         canvasManager = FindObjectOfType<CanvasManager>();
+        canvasManager.SetCanvasState(CanvasManager.CanvasState.InGame);
         canvasManager.SetActionPoints(actionPoints);
         canvasManager.SetScrapPoints(scrapAmount);
         rocket = GameObject.FindWithTag("rocket");
