@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6713481333111668490}
   - component: {fileID: 2363734835337338967}
   m_Layer: 0
-  m_Name: New Piskel-2.png
+  m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
