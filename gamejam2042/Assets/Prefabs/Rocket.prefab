@@ -207,3 +207,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minScraps: 10
   maxScraps: 20
+  acceleration: 0.1
+  explosionParticle: {fileID: 599877711980629695, guid: 47177aa5f52cb6d4493af156f7b43be2, type: 3}
