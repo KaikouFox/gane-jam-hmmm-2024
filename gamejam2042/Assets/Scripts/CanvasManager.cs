@@ -10,11 +10,7 @@ public class CanvasManager : MonoBehaviour
     {
         InGame,
         Ending,
-    }
-
-    public enum BarType
-    {
-
+        Controls,
     }
 
     [SerializeField] private GameObject actionText;
@@ -29,6 +25,19 @@ public class CanvasManager : MonoBehaviour
     [Header("Sliders")]
 
     private CanvasState currentState;
+    private CanvasState previousState;
+
+    private void Update()
+    {        
+        if (Input.GetKeyDown(KeyCode.Escape) && currentState != CanvasState.Controls)
+        {
+            previousState = currentState;
+            SetCanvasState(CanvasState.Controls);
+        } else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SetCanvasState(previousState);
+        }
+    }
 
     public void SetCanvasState(CanvasState state)
     {
@@ -47,22 +56,10 @@ public class CanvasManager : MonoBehaviour
             case CanvasState.Ending:
                 screens[1].SetActive(true);
                 break;
-        }
-    }
 
-    public void SetMaxBarValue(float newValue, BarType type)
-    {
-        switch (type)
-        {
-
-        }
-    }
-
-    public void SetBarValue(float newValue, BarType type)
-    {
-        switch (type)
-        {
-
+            case CanvasState.Controls:
+                screens[2].SetActive(true);
+                break;
         }
     }
 
